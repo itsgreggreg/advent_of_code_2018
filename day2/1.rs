@@ -1,0 +1,293 @@
+use std::collections::HashMap;
+
+fn main() {
+    let input = input();
+    let mut twos = 0;
+    let mut threes = 0;
+
+    for line in input.lines() {
+        let mut char_map: HashMap<char, u32> = HashMap::new();
+        let mut has_two = false;
+        let mut has_three = false;
+
+        for character in line.chars() {
+            let val: u32 = char_map.get(&character).unwrap_or(&0).clone();
+            char_map.insert(character, val + 1);
+        }
+
+        for val in char_map.values() {
+            match val {
+                2 => has_two = true,
+                3 => has_three = true,
+                _ => (),
+            }
+        }
+
+        if has_two {
+            twos = twos + 1
+        };
+
+        if has_three {
+            threes = threes + 1
+        };
+    }
+
+    println!("Checksum: {}", twos * threes);
+}
+
+fn input() -> String {
+    String::from(
+        "\
+qywzphxoiseldjrbaoagvkmanu
+qywzphxeisulpjrbtfcgvkmanu
+qywzxhooiseldjrbtfcgvcmanu
+qywzphjojseldjubtfcgvkmanu
+qtwzphxoieeldjrbtfcgvrmanu
+tywzphzoiseldjritfcgvkmanu
+qyuzphxoiseldjrbtfcgykbanu
+qswzmhxoiseldjrbtfcgvkaanu
+qyczqhxoiseldjrbtfcgvkbanu
+qybzpqxooseldjrbtfcgvkmanu
+qywzpoxoxseldjrbtfcgvpmanu
+qywzphxbipeldjrbtfcgvkmaru
+qywzpmxoiseldjrutqcgvkmanu
+qywzphxoisesdjrrtfchvkmanu
+qywzphxoiseldhrbtfcgukyanu
+jywzphyoiseldjrbtfclvkmanu
+qywzvhxoiselrjrbtfcgvkmanl
+qywzplxojseldjrbtfcgvkmamu
+qywzphxoiseldjrbtacgvkmvnd
+qywpphxoiseldjrbtfcgvkvenu
+qqazphxoiselqjrbtfcgvkmanu
+qyozvhxoiseldjrbtfcgvkmadu
+xywzphxliseldjhbtfcgvkmanu
+qdwzphioiseldqrbtfcgvkmanu
+qswyphxoiseldjrbtfcgvkmanx
+qowzshxoiseldjrbtfigvkmanu
+qywzphxoiseldjjbtfcgvkmawq
+qyhzphxoiseldjrbtfvgvkmynu
+qxwzphxoiselmjrbtfcgvqmanu
+qywzphxoiceldjrbtfcgikmgnu
+qywephxoiseldjrbthcgvkmane
+yywzphxoisejdjrotfcgvkmanu
+qywzxhxoisyldyrbtfcgvkmanu
+qywzpjxoiseqdjrbtfcgvwmanu
+qywzphxoqweldprbtfcgvkmanu
+qywzphnoiseldjrbtfcamkmanu
+qylgphxoiseldjrbtfcgvkmauu
+qysdphxomseldjrbtfcgvkmanu
+lywzpoxoikeldjrbtfcgvkmanu
+qywzphxgiseldjrbtfeqvkmanu
+qywzdhxozseldjcbtfcgvkmanu
+qywzphxeiskedjrbtfcgvkmanu
+qmwzphxoispldjrbtfcgvkmany
+qywzphxoiselzcrbtfcgvkmanz
+qywzphxoisxodjrbtscgvkmanu
+qywzphxoiseldjrrtfcgmkmaeu
+aywzphxoiseldjrbtfmjvkmanu
+qywzthxoiiewdjrbtfcgvkmanu
+qywzpsxoisrzdjrbtfcgvkmanu
+qywzphxoiseldjkbtqcgvkmank
+tywzphxoisewdjkbtfcgvkmanu
+qywkchxoiseldjrbtfcghkmanu
+qywzphxoiseldjoftfrgvkmanu
+qywzpixoisehdjrbtfcgvkmacu
+qywzchooiseldarbtfcgvkmanu
+qywyphtoaseldjrbtfcgvkmanu
+qywyphxotsbldjrbtfcgvkmanu
+qywzphxoiseldjrbhsggvkmanu
+dywzphxoiseldjrktfegvkmanu
+qywzphxoiseldjrmtfcgvkcenu
+qywcphxjiseldjybtfcgvkmanu
+qywzphxoiseldhrbsfogvkmanu
+qmwzpheoiseldjrrtfcgvkmanu
+qywzrhxoiselpjrbtfcgvemanu
+qyezphpoiseldjrbtfcgvdmanu
+qywzphxvisewdjrbtfcgvkmdnu
+qywzphkoiseldjrbtfcgvkmdnh
+qywzehxoiseldfrbtpcgvkmanu
+qywzphxoiseldjrrtfcgvrdanu
+qpwzphxoizeldjqbtfcgvkmanu
+qywzphxojseldjrbtmcgvkmvnu
+vywzphxoiseldjrbtfcgvkmaop
+sywzphxoiselbjrttfcgvkmanu
+qywwphkoiseldjrbtfcivkmanu
+qlwkpcxoiseldjrbtfcgvkmanu
+qywzphxoiyesdjrbtfcgvkmvnu
+qywzphxoiseldjrbofcgrkmrnu
+qywzphxyiseldjrstfcgvkmjnu
+qywzphaoiseldtrbnfcgvkmanu
+qywzphxhisuldurbtfcgvkmanu
+qywzphxdiseldjrbtvugvkmanu
+qywzpzxbiseldjrbtfcgukmanu
+qyrzphxoixeldjrbtfcgvumanu
+qywzphxoiberdjrptfcgvkmanu
+qywzphxfiskldjrbtfcgvkmdnu
+qyxzphxoiseldjrdhfcgvkmanu
+qywzphrqiseldjrbtfcgvbmanu
+qyezphxviseldjrbtfcgvkmani
+qywgphxoiseldgkbtfcgvkmanu
+qywzphxoileldjrbtgcgvkdanu
+qywzphxoiseldnrbtfcwvkmpnu
+qywzphxoiseidjrbmfcqvkmanu
+qywzpkxoiselijrbtfcgvlmanu
+mywzphxoiveldjrbtfcgvkmunu
+qywzphxooseddjrbtfcgpkmanu
+qywzphxokseldjritfcyvkmanu
+qywzxhxoiseldjrbtfqgvcmanu
+qywzphxoisfldjrbpfcgvkmaju
+qywuphxgiseldjrbffcgvkmanu
+qywzphociseldjrbtfcgvkuanu
+qywzphxoiseldvrbtftgckmanu
+qywzpbxoisrldjrbtfngvkmanu
+qywzphxoiseldjrntfygvdmanu
+qywzphxviseldkrbtfcgvkianu
+qywpphxgiseldjrbtfctvkmanu
+qywzphxoicewdjrbtfcgvsmanu
+qywzpcxoiseldjmbtfcgvcmanu
+qrwzphxoiseldjrbtfcgjumanu
+qywzphxoiselojrbtfcgxkmaau
+qywzphxojsbldjrbtfcgykmanu
+oywzphxoiseldjrbtfqgvkmvnu
+qywfphxpiseldjrbtfckvkmanu
+qyyzwhxwiseldjrbtfcgvkmanu
+qywzphxgiseldjrbtfchvkmabu
+qywzphxfiseldjrbtfcgukoanu
+qywzpdxoisyldjrbtfcgvkxanu
+dyuzphxoiseldjrbtfcgvkmamu
+qywzphxoiseldjrbifcgvkmnnp
+qywzpyxoiseldjrbtfcgvklano
+dywzphxoiieldjrbtfcgvwmanu
+qywzphxoihemdjrbtfcgvdmanu
+gywzphxoxseldvrbtfcgvkmanu
+qywzqhxoissldjwbtfcgvkmanu
+eywzphxoiieldjrbtfcgekmanu
+qyizprxciseldjrbtfcgvkmanu
+qywjphxoiseldjrbtfcgckmano
+qywznhxoiseldjrbrfcgvkmagu
+qywzphxoisrldjdbvfcgvkmanu
+qyyxphxoiseldjrbtwcgvkmanu
+qywzphxoiseldjdbtfcpvkmjnu
+qywzvhxqiseldjrbofcgvkmanu
+vywzphxoiseldjrbtfcgckwanu
+qywzphgbiseldjrbtfcgvkmazu
+qcwzphxoiseldjrbqfcgvkmdnu
+qywzphxoismldjrbtfcgkkmznu
+qywhphxoiseldjrbtccgvkmane
+qywzphzoiseldjrbtfcgvqmauu
+hywzphxoiseldjrbtfcuvkmanc
+qywzphxozsejdgrbtfcgvkmanu
+qyszphxoiseldjrntfygvdmanu
+qywzphxoisgldjrbtfcgvklaru
+qywzhhxoiseldjrbtscgvkmqnu
+qywjphxpiqeldjrbtfcgvkmanu
+qywzphxoiseldxrptfclvkmanu
+qywlphxoisehdjrbtfcgvkmanc
+qydzpfxoiseldjrwtfcgvkmanu
+qywzphxoiseldjrbtxcgqkfanu
+qywophxoiselfjrbtfcgvkmani
+qywzyhxoiszldtrbtfcgvkmanu
+qywzphxoxseldfrntfcgvkmanu
+qywzphloiseldjqbtfcgvkmtnu
+qywzpuxoiseldorbtfcgvkeanu
+qywzphxoiueldjrwdfcgvkmanu
+qgwzphxoiseldjmbtncgvkmanu
+qywzphtggseldjrbtfcgvkmanu
+qywzphxoisrldjrbtfmgvhmanu
+qfszphxoiseldjqbtfcgvkmanu
+qywzphxpisjldjrbxfcgvkmanu
+qywznhxoisepdjrbtfqgvkmanu
+qywzphioiseldjabtfcgxkmanu
+qyizphxaiseldjrbtfcgvkmaxu
+xywzphxoiqelvjrbtfcgvkmanu
+quwzphxoiseldjretfcgvkmaau
+bywzphxoiseldjrbtucgckmanu
+jywzphxoiseldjrbofcgvkmani
+qywzphxoiseltjkbtfcgvkmabu
+eywzphxoiselgjrbtfkgvkmanu
+qywzphxoisengjrttfcgvkmanu
+qywzphzoiseldjrbtfcgvkmknk
+quwdphxoiseldjrbtfcxvkmanu
+qcwzzhxoiseldjrgtfcgvkmanu
+qywgphxdiseldjrbtfcgjkmanu
+qywzpdxoivefdjrbtfcgvkmanu
+qywzphxoiseldjrbtfdgvjmpnu
+qfwzphxoiseydkrbtfcgvkmanu
+qywzphxdiqelqjrbtfcgvkmanu
+qywzvhxoiseldjrbtfognkmanu
+qywzphgoiseldjrbcfcgvtmanu
+qywophxoiseldjrbtpcgvkmank
+qywzphxoiszldjretfcgvkmabu
+qywzphxoiseldjhbtfcgvxmawu
+qcgzphxoiselejrbtfcgvkmanu
+qywzphxoisepdjrbtfcfvkcanu
+qivzphxniseldjrbtfcgvkmanu
+qywzhhxoiseldjrftxcgvkmanu
+qyazphxciseldjrbtfcgskmanu
+qywzphxoisoldgrbtfczvkmanu
+qywzmhxoiseldurbwfcgvkmanu
+qywzphxoistldjrbwfcgvkranu
+qywzphxoistedjrbtfcgokmanu
+qywzqhxodsecdjrbtfcgvkmanu
+qywzphxtisxldjrbtfcgvkhanu
+qywzphxoeseldjrtrfcgvkmanu
+qdwzphxoioeldjrbtfigvkmanu
+qjwzphxoisbldjrbtfcgvkmanz
+qywzphxoiseldbrbtfdgvlmanu
+qywzphxoiselddrbhvcgvkmanu
+zywzppxoiseldjrdtfcgvkmanu
+qywzppxqiselkjrbtfcgvkmanu
+qywzphxoihelbjrbtfcgvkmabu
+qywzphxoiseldjreyfcgvknanu
+qywzphxxrseldjrbtfcgvkmagu
+qywhpfxoiseldjrbtfdgvkmanu
+qywzphxoisxldjrdtfagvkmanu
+oywzphxxiseldjrbtfcgvkmaeu
+qywzphxoiselqirbtfvgvkmanu
+qywzphxoqseldhrbtfcgvkhanu
+qywzphxokseldjrbtfxgvkmaju
+qywzphtoiseldurbtfcfvkmanu
+qywzphxoiheudjrrtfcgvkmanu
+qrwzphxzigeldjrbtfcgvkmanu
+qywzphxoiseldorbtfcgvxmvnu
+qywzphxoisaldjpbqfcgvkmanu
+qywuphxoiselljrbtfchvkmanu
+qywzphxoisaldjrbefcgvkmsnu
+qywzphxoiteldjrbnfcgvkmanp
+qywhphxoiselqjrbtfcgvkmagu
+qywzjhxoisejdjrbtfcgvkmanr
+qywephaoiseldjrbtfcavkmanu
+qywcphxoireldjqbtfcgvkmanu
+qywzphxoiseldirbuicgvkmanu
+qywzphxoisecvnrbtfcgvkmanu
+qcwzphxoiseldjrbtfcgvrmaiu
+qywnphxoiseldjrntftgvkmanu
+qywzphxhisyldjrbtfcgvkmafu
+qyhzphxoiseldjrytfcgvkmanq
+vjwzbhxoiseldjrbtfcgvkmanu
+qyvzpsxoisuldjrbtfcgvkmanu
+qywzphxaiseldcrbefcgvkmanu
+qywzphxoiseldjgbtfsgvkfanu
+oiwzphxoiseldjrbtfcgvkmcnu
+qyezphxoiseldjrbtfcqvkmjnu
+tywzphxriseldzrbtfcgvkmanu
+yywzphxoiseldjbbtfugvkmanu
+qywzpfxviseldjrbttcgvkmanu
+qywzphxoiceldcrbtfugvkmanu
+qymzphxoiseldjratfcsvkmanu
+qywzphxoiselxjrbdfcgvkpanu
+qywzphxoiselujrbtfkgvimanu
+qywzshyoiseldjrbtfcgpkmanu
+qywzphxoiselfjrbtfsgvkmant
+qywpphxoiseldjxbtfcyvkmanu
+qywzfhxoiselqjrptfcgvkmanu
+qewzphxoiseldprbtfcgvkmand
+qywfphxoiseldlrbtfcgvkmgnu
+qywzphxoiseldjhbtqcovkmanu
+fywzphxoiseldlrbtfcgvkjanu
+sywzphxoiseldjrbhfccvkmanu
+qywzphxoiseldjfbtfcrvkmpnu
+sywzphxoisrldjrbtfczvkmanu
+",
+    )
+}
