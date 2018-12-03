@@ -13,9 +13,9 @@ fn main() {
             if same_chars != None {
                 break;
             }
-
-            same_chars = only_one_difference(&line1, &line2);
-
+            if current_line2 >= skip {
+                same_chars = only_one_difference(&line1, &line2);
+            }
             current_line2 = current_line2 + 1;
         }
         skip = skip + 1;
